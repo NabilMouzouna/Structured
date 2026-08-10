@@ -466,6 +466,7 @@
 
     attach(el, opts) {
       if (!el || director.byEl.has(el)) return API;
+      document.documentElement.setAttribute('data-aramon-tier', director.tier);
       if (director.tier === 'flat') return API;
 
       // No hover means no continuous stir — there is nothing to stir with.
@@ -508,12 +509,12 @@
     },
   };
 
-  director.setTier(detectTier());
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => API.refresh());
-  } else {
-    API.refresh();
-  }
+  // Initialisation is deliberately side-effect free. Framework adapters call
+  // attach() after hydration, preventing the engine from changing the DOM while
+  // React is still reconciling server markup. Non-framework pages can opt in
+  // explicitly with AramonMedium.refresh().
+  director.tier = detectTier();
+  director.demoted = director.tier !== 'full';
 
   global.AramonMedium = API;
 })(window);
