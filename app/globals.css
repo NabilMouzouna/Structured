@@ -171,6 +171,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .quiet-status { color: var(--ink-3); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
 .quiet-status i { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: #8fb49a; margin-right: 8px; box-shadow: 0 0 12px rgba(143,180,154,.5); }
 .text-button { font-size: 12px; }
+.system-link { text-decoration: none; }
 .text-button:hover, .frame-action:hover, .quiet-button:hover { color: var(--ink); }
 .workspace__content { width: min(1280px, 100%); margin: 0 auto; padding: clamp(56px, 8vw, 118px) clamp(24px, 5vw, 78px) 44px; }
 
@@ -346,7 +347,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .is-light .brand-mark img, .is-light .brand-mark--small img { filter: none; }
 .is-light .dock { background: rgba(238, 246, 245, .74); backdrop-filter: blur(24px) saturate(1.15); }
 .is-light .workspace-bar { background: rgba(238, 246, 245, .70); backdrop-filter: blur(24px) saturate(1.15); }
-.is-light .medium, .is-light .dialog { color: #f2f5f3; }
+.is-light .medium, .is-light .dialog {
+  --medium-top: 24, 26, 27;
+  --medium-bottom: 3, 4, 5;
+  --medium-shadow: 13, 20, 22;
+  color: #f2f5f3;
+}
 .is-light .medium .eyebrow, .is-light .dialog .eyebrow { color: rgba(242,233,223,.48); }
 .is-light .dock-link.is-active {
   background: linear-gradient(90deg, rgba(255,255,255,.52), rgba(214,236,240,.20), transparent);

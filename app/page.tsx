@@ -158,6 +158,7 @@ export default function Home() {
           <div className="workspace-bar__route"><span>ARAMON /</span> {activeNav}</div>
           <div className="workspace-bar__tools">
             <span className="quiet-status"><i /> System calm</span>
+            <a className="text-button system-link" href="/system">System reference ↗</a>
             <button className="text-button" onClick={() => setFocusMode(!focusMode)}>
               {focusMode ? "Leave focus" : "Enter focus"}
             </button>
