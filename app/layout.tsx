@@ -10,18 +10,18 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: base,
-    title: "Aramon Focus Architecture — Component Study",
-    description: "Four softer liquid materials and the Desk, Frame, Medium, and Lamp interface language for Aramon.",
+    title: "Aramon Space + Calendar",
+    description: "A calm local workspace for tickets, time, and the work that is becoming real.",
     icons: { icon: "/aramon-mark.svg", shortcut: "/aramon-mark.svg" },
     openGraph: {
-      title: "Aramon Focus Architecture",
-      description: "Softer by nature. Four interactive liquid-material directions for Aramon.",
+      title: "Aramon Space + Calendar",
+      description: "A calm local workspace for tickets, time, and the work that is becoming real.",
       images: [{ url: new URL("/og.png", base).toString(), width: 1680, height: 945, alt: "Aramon Focus Architecture" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Aramon Focus Architecture",
-      description: "Softer by nature. Four interactive liquid-material directions for Aramon.",
+      title: "Aramon Space + Calendar",
+      description: "A calm local workspace for tickets, time, and the work that is becoming real.",
       images: [new URL("/og.png", base).toString()],
     },
   };
