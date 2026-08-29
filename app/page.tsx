@@ -1,12 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import type { DragEvent, FormEvent, ReactNode } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { DragEvent, FormEvent, HTMLAttributes, ReactNode } from "react";
 import { workspaceDb } from "@/lib/workspace-db";
 import { COLUMN_ORDER, EMPTY_RECURRENCE, defaultEvent, defaultTicket, nowIso } from "@/lib/workspace-types";
 import type { CalendarEvent, Priority, Recurrence, RepeatKind, Status, Ticket } from "@/lib/workspace-types";
-
-declare global { interface Window { AramonMedium?: { attach: (element: HTMLElement, options: { mode: "stir" | "press" }) => void; detach: (element: HTMLElement) => void }; } }
 
 type View = "space" | "calendar";
 type TicketDraft = Omit<Ticket, "id" | "order" | "createdAt" | "updatedAt" | "linkedEventId">;
@@ -19,17 +17,11 @@ const columns: { id: Status; label: string; short: string }[] = [
 const priorityOptions: Priority[] = ["low", "medium", "high", "urgent"];
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-function LiquidSurface({ children, className, mode = "stir" }: { children: ReactNode; className: string; mode?: "stir" | "press" }) {
-  const surfaceRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const surface = surfaceRef.current; if (!surface) return;
-    let timer: ReturnType<typeof setTimeout> | undefined; let cancelled = false;
-    const connect = () => { if (cancelled) return; if (window.AramonMedium) window.AramonMedium.attach(surface, { mode }); else timer = setTimeout(connect, 80); };
-    connect(); return () => { cancelled = true; if (timer) clearTimeout(timer); window.AramonMedium?.detach(surface); };
-  }, [mode]);
-  return <div ref={surfaceRef} className={className} data-medium-physics={mode}>{children}</div>;
+function GlassSurface({ children, className, ...props }: { children: ReactNode; className: string } & Omit<HTMLAttributes<HTMLDivElement>, "children" | "className">) {
+  return <div className={className} {...props}>{children}</div>;
 }
-function Mark() { return <span className="brand-mark" aria-hidden="true"><img src="/aramon-mark.svg" alt="" /></span>; }
+const LiquidSurface = GlassSurface;
+function Mark() { return <span className="brand-mark" aria-hidden="true" />; }
 function PriorityMark({ priority }: { priority: Priority }) { return <span className={`priority-mark priority-${priority}`} aria-label={`${priority} priority`} />; }
 function parseTags(value: string) { return [...new Set(value.split(/[\s,]+/).map((tag) => tag.trim().replace(/^#/, "").toLowerCase()).filter(Boolean))]; }
 function tagsValue(tags: string[]) { return tags.join(", "); }

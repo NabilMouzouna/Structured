@@ -10,23 +10,22 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     metadataBase: base,
-    title: "Aramon Space + Calendar",
-    description: "A calm local workspace for tickets, time, and the work that is becoming real.",
-    icons: { icon: "/aramon-mark.svg", shortcut: "/aramon-mark.svg" },
+    title: "Space + Calendar",
+    description: "A clear personal space for work and time.",
     openGraph: {
-      title: "Aramon Space + Calendar",
-      description: "A calm local workspace for tickets, time, and the work that is becoming real.",
-      images: [{ url: new URL("/og.png", base).toString(), width: 1680, height: 945, alt: "Aramon Focus Architecture" }],
+      title: "Space + Calendar",
+      description: "A clear personal space for work and time.",
+      images: [{ url: new URL("/og.png", base).toString(), width: 1680, height: 945, alt: "Space + Calendar" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Aramon Space + Calendar",
-      description: "A calm local workspace for tickets, time, and the work that is becoming real.",
+      title: "Space + Calendar",
+      description: "A clear personal space for work and time.",
       images: [new URL("/og.png", base).toString()],
     },
   };
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><head><script src="/medium.js" defer /></head><body>{children}</body></html>;
+  return <html lang="en"><body>{children}</body></html>;
 }
