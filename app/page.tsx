@@ -42,7 +42,7 @@ function localDateTime(date: string, time?: string | null) { return `${date}${ti
 function eventDate(event: CalendarEvent) { return event.start.slice(0, 10); }
 function durationMinutes(event: CalendarEvent) { return Math.max(0, (new Date(event.end).getTime() - new Date(event.start).getTime()) / 60000); }
 function eventForTicket(ticket: Ticket): CalendarEvent | null {
-  if (!ticket.scheduledDate) return null;
+  if (!ticket.scheduledDate || ticket.linkedEventId) return null;
   const start = localDateTime(ticket.scheduledDate, ticket.scheduledStart);
   const end = ticket.scheduledEnd ? localDateTime(ticket.scheduledDate, ticket.scheduledEnd) : ticket.scheduledStart ? localDateTime(ticket.scheduledDate, ticket.scheduledStart) : addDays(ticket.scheduledDate, 1);
   return { id: `ticket:${ticket.id}`, title: ticket.title, tags: ticket.tags, priority: ticket.priority, start, end, allDay: !ticket.scheduledStart, recurrence: { ...EMPTY_RECURRENCE }, addToSpace: true, linkedTicketId: ticket.id, createdAt: ticket.createdAt, updatedAt: ticket.updatedAt };
@@ -61,7 +61,7 @@ function recurrenceMatches(event: CalendarEvent, date: string) {
 }
 function expandEvent(event: CalendarEvent, from: string, to: string): EventInstance[] {
   const result: EventInstance[] = []; let cursor = from; let count = 0;
-  while (cursor <= to && count < 500) { if (recurrenceMatches(event, cursor)) { const time = event.allDay ? "" : event.start.slice(10); const start = `${cursor}${time}`; const duration = event.allDay ? 1440 : durationMinutes(event); const end = event.allDay ? addDays(cursor, 1) : new Date(new Date(start).getTime() + duration * 60000).toISOString().slice(0, 16); result.push({ event, date: cursor, key: `${event.id}:${cursor}`, start, end }); count += 1; } cursor = addDays(cursor, 1); }
+  while (cursor <= to && count < 500) { if (recurrenceMatches(event, cursor)) { const time = event.allDay ? "" : event.start.slice(10); const start = `${cursor}${time}`; const duration = event.allDay ? 1440 : durationMinutes(event); const endDate = new Date(dateFromKey(cursor)); if (!event.allDay) { const [hours, minutes] = event.start.slice(11, 16).split(":").map(Number); endDate.setHours(hours, minutes + duration, 0, 0); } else endDate.setDate(endDate.getDate() + 1); const end = event.allDay ? todayKey(endDate) : `${todayKey(endDate)}T${String(endDate.getHours()).padStart(2, "0")}:${String(endDate.getMinutes()).padStart(2, "0")}`; result.push({ event, date: cursor, key: `${event.id}:${cursor}`, start, end }); count += 1; } cursor = addDays(cursor, 1); }
   return result;
 }
 function starterData() {
