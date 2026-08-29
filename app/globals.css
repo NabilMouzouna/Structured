@@ -165,3 +165,21 @@ html, body { background: #171517; }
 }
 .ticket-card:active { transform: none; }
 .ticket-card__title { color: #f7f4ef; }
+
+/* Primary actions use the warm, crisp treatment from the UI reference. */
+.lamp-button {
+  min-height: 46px;
+  padding: 0 22px;
+  border: 1px solid rgba(255, 250, 241, .88);
+  border-radius: 10px;
+  color: #211e1b;
+  background: linear-gradient(180deg, #fff8ef 0%, #ead7bd 100%);
+  box-shadow: 0 10px 24px rgba(9, 12, 18, .24), inset 0 1px rgba(255, 255, 255, .95);
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: -.01em;
+}
+.lamp-button:hover {
+  background: linear-gradient(180deg, #fffaf3 0%, #f0dfc9 100%);
+  box-shadow: 0 13px 30px rgba(9, 12, 18, .3), inset 0 1px rgba(255, 255, 255, .98);
+}
