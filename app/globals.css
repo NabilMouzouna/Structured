@@ -148,3 +148,20 @@ html, body { background: #171517; }
 .site.is-light .calendar-day:hover { background: rgba(255,255,255,.52); }
 .site.is-light .event-pill strong { color: #172022; }
 .site.is-light .event-pill small { color: rgba(23,32,34,.62); }
+
+/* Mountain sunrise backdrop and restrained ticket surfaces. */
+:root { --clear-radius: 15px; }
+.desk-backdrop { background-image: url("/mountain-sunrise.jpg"); }
+.desk-veil { background: linear-gradient(180deg, rgba(7, 13, 20, .08), rgba(7, 12, 20, .38)); }
+.ticket-card,
+.ticket-card:hover {
+  transform: none;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-top-color: rgba(255, 255, 255, .26);
+  border-radius: 10px;
+  background: #202a34;
+  box-shadow: 0 6px 18px rgba(5, 10, 18, .22);
+  backdrop-filter: none;
+}
+.ticket-card:active { transform: none; }
+.ticket-card__title { color: #f7f4ef; }
